@@ -1,0 +1,133 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} My Blog! {% endblock %}</title>
+    <script src="https://kit.fontawesome.com/6df0db8714.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <header style="width: 100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: #849be9;" href="{% url 'home' %}">My Blog!</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_post' %}" style="color: #849be9;">Add Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_category' %}" style="color: #849be9;">Add Category</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}" style="color: #849be9;">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}" style="color: #849be9;">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% if user.is_authenticated %}
+                        {% if user.id %}
+                            <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item"><a class="nav-link" href="{% url 'edit_profile' %}" style="color: #849be9;">Edit setting</a></li>
+                                        {% if user.profile.id %}
+                                            <li class="nav-item"><a class="nav-link" href="{% url 'edit_profile_page' user.profile.id %}" style="color: #849be9;">Edit Profile Page</a></li>
+                                        {% else %}
+                                            <li class="nav-item"><a class="nav-link" href="{% url 'create_profile_page' %}" style="color: #849be9;">Create Profile Page</a></li>
+                                        {% endif %}
+                                            <div class="nav-item"><a class="nav-link" href="{% url 'logout' %}" style="color: #849be9;">Logout</a></div>
+                            </ul>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+<head>
+    <title></title>
+    <style>
+        .card {
+            border: none;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #849be9;
+        }
+    
+    
+        .social-list {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            padding: 0;
+        }
+    
+        .social-list li {
+            padding: 10px;
+            color: white;
+            font-size: 19px;
+        }
+    </style>
+</head>
+<body style="background-color: #849be9;"> 
+<div class="container mt-5 pt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-3 py-4">
+                <div class="text-center">
+                    {% if page_user.profile_pic %}
+                        <img  src="{{ page_user.profile_pic.url }}" style="width: 200px;height: 200px;" class="rounded-circle">
+                    {% else %}
+                        <img src="{% static  'theblog/images/dp.png' %}" class="img-fluid rounded-start" style="width: 200px;height: 200px;">
+                    {% endif %}
+                    </div>
+                <div class="text-center mt-3">
+                    <h5 class="mt-2 mb-0">{{ page_user.author }}</h5></h5>
+                    <div class="px-4 mt-1">
+                        <h5 class="fonts">{{ page_user.bio }}</h5>
+                    </div>
+                    <ul class="social-list">
+                    {% if page_user.website_url %}
+                        <a href="{{ page_user.website_url }}"><li><i class="fa fa-google"></i></li></a>
+                    {% endif %}
+
+                    {% if page_user.facebook_url %}
+                        <a href="{{ page_user.facebook_url }}"><li><i class="fa fa-facebook"></i></li></a>
+                    {% endif %}
+
+                    {% if page_user.twitter_url %}
+                        <a href="{{ page_user.twitter_url }}"><li><i class="fa fa-twitter"></i></li></a>
+                    {% endif %}
+
+                    {% if page_user.instagram_url %}
+                        <a href="{{ page_user.instagram_url }}"><li><i class="fa fa-instagram"></i></li></a>
+                    {% endif %}
+
+                    {% if page_user.pinterest_url %}
+                        <a href="{{ page_user.pinterest_url }}"><li><i class="fa fa-linkedin"></i></li></a>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

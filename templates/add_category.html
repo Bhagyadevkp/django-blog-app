@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Create a New Blog Category! {% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="row p-5">
+    <div class="d-flex justify-content-center p-5 mt-5">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group pt-5 mt-5">
+                <input type="text" class="form-control text-center" name="name" placeholder="Add Here">
+            </div>
+            <button class="btn btn-info mt-1" style="width: 100%;color: white;background-color: #849be9;">Add
+                Category</button>
+        </form>
+    </div>
+</div>
+{% else %}
+You're not allowed HERE!
+
+{% endif %}
+{% endblock %}

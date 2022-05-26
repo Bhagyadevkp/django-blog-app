@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if category_posts %}
+
+<section>
+    <div class="row p-4">
+        {% for post in category_posts %}
+            <div class="col-md-3">
+                <a href="{% url 'article-detail' post.pk %}" style="text-decoration: none;">
+                    <div class="card-group">
+                        <div class="card" style="background-color: #ebe9f7; border: none;border-radius: 20px;">
+                            <img src="{{ post.header_image.url }}" class="card-img-top p-3" style="border-radius: 30px;height: 180px;" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
+                                <p class="card-text"><small class="text-muted">{{ post.post_date }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% else %}
+<p>Sorry this page does not exist.....</p>
+
+{% endif %}
+{% endblock %}

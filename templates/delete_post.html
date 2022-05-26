@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Delete Post! {% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+
+<div class="row p-5">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="p-5 mt-5">
+            <div class="form-group pt-1 mt-1 d-flex justify-content-center">
+                <strong>Are you sure to delete {{ post.title }}?</strong>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-secondary mt-3" style="width: 200px;color: white;background-color: #849be9;">Delete
+                    Post!</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% else %}
+You're not allowed HERE!
+{% endif %}
+{% else %}
+You're not allowed HERE!
+{% endif %}
+{% endblock %}

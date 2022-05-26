@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .main {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 100% 40%;
+        grid-gap: 30px;
+    }
+
+    .left-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .status-wrapper {
+        width: 100%;
+        background: #fff;
+        border: 0px solid #dfdfdf;
+        padding-right: 0;
+        display: flex;
+        overflow: hidden;
+        overflow-x: auto;
+    }
+
+    .status-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .status-card {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 15px
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 30px;
+        border-radius: 50px;
+        overflow: hidden;
+        padding: 3px;
+        background: #ebe9f7;
+    }
+
+    .username {
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 4px;
+        color: rgba(0, 0, 0, 5);
+    }
+
+    .profile-pic:hover {
+        background: #869ce7;
+    }
+
+    .username:hover {
+        color: white;
+    }
+</style>
+
+<body>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <section class="main">
+                    <div class="wrapper">
+                        <div class="left-col">
+                            {% if cat_menu %}
+                            <div class="status-wrapper">
+                                {% for item in cat_menu %}
+                                <a href="{% url 'category' item|slugify %}" style="text-decoration: none;">
+                                    <div class="status-card">
+                                        <div class="profile-pic">
+                                            <p class="username">{{ item }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="right-col">
+                            </div>
+                        </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+<div class="container-fluid">
+    <section>
+        <div class="row p-4">
+            {% for post in object_list %}
+                <div class="col-md-3">
+                    <a href="{% url 'article-detail' post.pk %}" style="text-decoration: none;">
+                        <div class="card-group">
+                            <div class="card" style="background-color: #ebe9f7; border: none;border-radius: 20px;">
+                                <img src="{{ post.header_image.url }}" class="card-img-top p-3" style="border-radius: 30px;height: 180px;" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ post.post_date }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+
+
