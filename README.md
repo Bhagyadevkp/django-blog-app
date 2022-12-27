@@ -6,4 +6,3 @@
 
 # Backend: DJANGO
 
-<p><a href="https://django-myblog2022.herokuapp.com/">Click here</a></p>
